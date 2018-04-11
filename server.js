@@ -231,7 +231,7 @@ curut2.delete(function(req,res,next){
 app.use('/api', router);
 
 //start Server
-var server = app.listen(3000,function(){
+var server = app.listen(3030,function(){
 
    console.log("Listening to port %s",server.address().port);
 

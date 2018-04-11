@@ -2,16 +2,16 @@ version: "3.1"
 
 services:
   userapp:
-    image: pavanraj29/nodejs-webapp
+    image: pavanraj29/userapp
     deploy:
       replicas: 2
     ports: 
-      - 3000:3000
+      - 3030:3030
     depends_on:
       - userappdb
 
   userappdb:
-    image: userapp-db
+    image: pavanraj29/userappdb
     ports:
       - 3306:3306
     environment:
@@ -21,4 +21,4 @@ services:
         constraints: [node.role == manager]
     volumes:
       - /etc/mysql:/etc/mysql
-      - /var/lib/mysql:/var/lib/mysql
+      - /var/lib/mysql:/usr/local/mysql/data/

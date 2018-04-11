@@ -1,8 +1,9 @@
 FROM node:9.8.0-alpine
 RUN apk upgrade && apk update && apk add mysql-client
 COPY . /tmp/
-WORKDIR /tmp/rest-crud/
+WORKDIR /tmp/
 RUN npm install
-EXPOSE 3000
-CMD ["mysql", "-u root -pmy-secret-pw test -h userapp_userappdb < t_user.sql"]
-CMD ["npm", "start"]
+EXPOSE 3030
+#RUN chmod +x /tmp/entrypoint.sh
+#ENTRYPOINT ["/tmp/entrypoint.sh"]
+CMD ["npm","start"]
