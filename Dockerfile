@@ -4,6 +4,4 @@ COPY . /tmp/
 WORKDIR /tmp/
 RUN npm install
 EXPOSE 3030
-#RUN chmod +x /tmp/entrypoint.sh
-#ENTRYPOINT ["/tmp/entrypoint.sh"]
 CMD ["npm","start"]
