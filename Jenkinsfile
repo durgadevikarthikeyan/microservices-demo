@@ -42,8 +42,6 @@ pipeline {
             
             steps {
                 sh '''
-                sudo docker stack rm ${stack_name}
-                sleep 20
                 sudo docker stack deploy -c ${stack_file} ${stack_name}
                 '''
             }
