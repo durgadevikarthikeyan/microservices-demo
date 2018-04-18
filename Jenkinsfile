@@ -14,7 +14,7 @@ pipeline {
     // when https://issues.jenkins-ci.org/browse/JENKINS-41748 is merged and
     // released.
         VERSION= "${BUILD_ID}"
-        app_image= "pavanraj29/userapp"
+        app_image= "hm-demo/userapp"
         stack_name= "userapp"
         stack_file= "userapp-stack.yaml"
      }
