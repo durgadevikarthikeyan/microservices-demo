@@ -14,7 +14,7 @@ pipeline {
     // when https://issues.jenkins-ci.org/browse/JENKINS-41748 is merged and
     // released.
         VERSION= "${BUILD_ID}"
-        app_image= "hm-demo/userapp"
+        app_image= "hmdemo/userapp"
         stack_name= "userapp"
         stack_file= "userapp-stack.yaml"
      }
@@ -22,7 +22,7 @@ pipeline {
     stages {
         stage("app build") {
             steps {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'Dockercreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'HMDockerCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                 sh '''
                       rm -rf DockerSwarm-microservices
                       git clone https://github.com/HM-demo/DockerSwarm-microservices.git
