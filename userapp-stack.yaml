@@ -11,7 +11,7 @@ services:
       - userappdb
 
   userappdb:
-    image: pavanraj29/userappdb
+    image: hmdemo/userappdb
     ports:
       - 3306:3306
     environment:
