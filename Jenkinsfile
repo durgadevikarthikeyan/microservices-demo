@@ -14,7 +14,7 @@ pipeline {
     // when https://issues.jenkins-ci.org/browse/JENKINS-41748 is merged and
     // released.
         VERSION= "${BUILD_ID}"
-        app_image= "pavanraj29/userapp"
+        app_image= "hmdemo/userapp"
         stack_name= "userapp"
         stack_file= "userapp-stack.yaml"
      }
@@ -22,12 +22,18 @@ pipeline {
     stages {
         stage("app build") {
             steps {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'Dockercreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                 sh '''
                       rm -rf DockerSwarm-microservices
                       git clone https://github.com/HM-demo/DockerSwarm-microservices.git
                       cd DockerSwarm-microservices
                       sudo docker build -t userapp .
+                   '''                         
+            }
+        }
+        stage("image tag&push") {
+            steps {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'HMDockerCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                sh '''
                       #sed -i -e 's/maven-sample/maven-sample:'${VERSION}'/g' ../sample-stack.yaml
                       sudo docker login -u $USERNAME -p $PASSWORD
                       sudo docker tag userapp ${app_image}:${VERSION}
