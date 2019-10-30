@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userapp
+  labels:
+    app: userapp
+spec:
+  selector: #how the Deployment finds which Pods to manage
+      matchLabels:
+        app: userapp
+  template:
+    metadata:
+      labels:
+        app: userapp #pods labeled userapp
+    spec:
+      containers:
+      - name: userapp
+        image: hmdemo/userapp
+        ports:
+          - containerPort: 3030
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: userapp
+spec:
+  maxReplicas: 1
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: userapp
+  targetCPUUtilizationPercentage: 80

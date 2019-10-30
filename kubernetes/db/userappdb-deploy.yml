@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: userappdb
+  labels:
+    app: userappdbl
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: userappdb
+    spec:
+      containers:
+      - image: hmdemo/userappdb
+        name: userappdb
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: mysql-root-password
+                name: userappdb
+        ports:
+          - containerPort: 3306
+            name: userappdb
+        volumeMounts:
+          - name: data
+            mountPath: /var/lib/mysql
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: userappdb
